@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_clone/feature/auth/screens/login_screen.dart';
+import 'package:instagram_clone/theme/pallete.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(ProviderScope(child: const MyApp()));
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -10,29 +19,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'AppBar',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home: MyPage(),
+      theme: Pallete.darkModeAppTheme,
+      home: LoginScreen(),
     );
   }
-}
-
-class MyPage extends StatelessWidget {
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text('title'),
-      centerTitle: true,
-    ),
-    body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-        ],
-      ),
-    ),
-  );
-}
 }
